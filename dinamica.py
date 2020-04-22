@@ -47,7 +47,8 @@ def libros(codigo):
     biblioteca = etree.parse('libros.xml')
     if codigo in biblioteca.xpath('//libro/codigo/text()'):
         autor = biblioteca.xpath('//libro[codigo="%s"]/autor/text()'%(codigo))[0]
-        return render_template("libros.html", libro=nombre_libro) 
+        nombre_libro = biblioteca.xpath('//libro[codigo="%s"]/titulo/text()'%codigo)[0]
+        return render_template("libros.html", libro=nombre_libro, autor=autor) 
     else:
         abort(404)
 
