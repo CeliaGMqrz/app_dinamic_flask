@@ -37,6 +37,19 @@ def contar(cadena,caracter):
         veces = cadena.count(caracter)
     return render_template("cuentaletras.html",palabra=cadena,veces=veces,letra=caracter) 
 
+# Página libros: A esta página se entra con la URL /libro/codigo (siendo código un número entero). Tienes que buscar el código en el fichero libros.xml 
+# y debes mostrar una página con un título "Biblioteca" y el nombre del libro y el autor. Si no existe el código debe devolver una respuesta 404.
+
+from lxml import etree
+
+@app.route('/libro/<codigo>',methods=["GET","POST"])
+def libros(codigo):
+    biblioteca = etree.parse('libros.xml')
+    if codigo in biblioteca.xpath('//libro/codigo/text()'):
+        autor = biblioteca.xpath('//libro[codigo="%s"]/autor/text()'%(codigo))[0]
+        return render_template("libros.html", libro=nombre_libro) 
+    else:
+        abort(404)
 
 
 app.run("0.0.0.0",8000,debug=True)
