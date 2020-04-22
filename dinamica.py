@@ -24,9 +24,7 @@ def potencia(base,exp):
         abort(404)
     return render_template("potencia.html",base=base,exponente=exp,resultado=resultado)
 
-
-
-#Página cuenta letras: Se accede con la URL /cuenta/palabra/letra (siendo palabra y letra dos cadenas cualquiera). Si la letra no es una cadena con un carácter se devuelve un error 404. 
+# Página cuenta letras: Se accede con la URL /cuenta/palabra/letra (siendo palabra y letra dos cadenas cualquiera). Si la letra no es una cadena con un carácter se devuelve un error 404. 
 # Se muestra una página donde hay un título "Cuanta letras", y muestra el siguiente mensaje "En la palabra ********* aparece *** veces el carácter ***".
 
 @app.route('/cuenta/<cadena>/<caracter>',methods=["GET","POST"])
@@ -42,7 +40,7 @@ def contar(cadena,caracter):
 
 from lxml import etree
 
-@app.route('/libro/<codigo>',methods=["GET","POST"])
+@app.route('/libro/<codigo>') 
 def libros(codigo):
     biblioteca = etree.parse('libros.xml')
     if codigo in biblioteca.xpath('//libro/codigo/text()'):
@@ -52,5 +50,5 @@ def libros(codigo):
     else:
         abort(404)
 
+app.run(debug=True)
 
-app.run("0.0.0.0",8000,debug=True)
