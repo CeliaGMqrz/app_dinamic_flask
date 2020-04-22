@@ -24,4 +24,19 @@ def potencia(base,exp):
         abort(404)
     return render_template("potencia.html",base=base,exponente=exp,resultado=resultado)
 
+
+
+#Página cuenta letras: Se accede con la URL /cuenta/palabra/letra (siendo palabra y letra dos cadenas cualquiera). Si la letra no es una cadena con un carácter se devuelve un error 404. 
+# Se muestra una página donde hay un título "Cuanta letras", y muestra el siguiente mensaje "En la palabra ********* aparece *** veces el carácter ***".
+
+@app.route('/cuenta/<cadena>/<caracter>',methods=["GET","POST"])
+def contar(cadena,caracter):
+    if len(caracter) != 1:
+        abort(404)
+    else:
+        veces = cadena.count(caracter)
+    return render_template("cuentaletras.html",palabra=cadena,veces=veces,letra=caracter) 
+
+
+
 app.run("0.0.0.0",8000,debug=True)
