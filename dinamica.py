@@ -7,7 +7,7 @@ def inicio():
     return render_template("index.html")
 
 # Página potencia:
-@app.route('/potencia/<int:base>/<int:exp>',methods=["GET","POST"])
+@app.route('/potencia/<int:base>/<exp>',methods=["GET","POST"])
 def potencia(base,exp):
     exp=int(exp)
 #Si el exponente es positivo, el resultado es la potencia.
